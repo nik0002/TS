@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <title>Тестовое задание</title>
+</head>
+<body>
+	<form name="f"><input type="text" id='txt' size="40" name="txt"/></form>
+	<input type="submit" name="submit" value="Сортировать" />
+	<input type="submit" name="submit" value="Отправить" />
+	<p id="otvet">{{subs}}</p>
+	<script>
+		let mas = document.getElementsByName("submit")
+		// прикрепляем обработчик кнопки отправки
+		mas[0].addEventListener("click", sendRequest);
+		function sendRequest(event)
+		{
+			var request = new XMLHttpRequest(); // запрос
+    		var formData = new FormData(document.forms[0]);
+    		request.open("POST", "getdata", false);
+    		request.send(formData);
+		}
+		mas[1].addEventListener("click", sendRequest1);
+		function sendRequest1(event)
+		{
+   			var request1 = new XMLHttpRequest(); 
+    		request1.open("GET", 'hello.txt', false);
+    		request1.onreadystatechange = function () {
+    		if (request1.readyState == 4 && request1.status == 200)
+        		document.getElementById("txt").value = request1.responseText;
+    		}
+    		request1.send();
+		}
+	</script>
+</body>
+</html>
